@@ -1,0 +1,72 @@
+{extend name="template/base" /}
+{block name="css"}{/block}
+{block name="main"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+            <!--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+            </a>
+            <a class="btn btn-primary radius" href="javascript:;" onclick="add('添加角色','/admin/role/add','800')">
+                <i class="Hui-iconfont">&#xe600;</i> 添加角色
+            </a>-->
+            {custom:handle /}
+        </span>
+        <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="6">角色管理</th>
+        </tr>
+        <tr class="text-c">
+            <th width="25"><input type="checkbox" value="" name=""></th>
+            <th width="40">ID</th>
+            <th width="200">角色名</th>
+            <th width="300">描述</th>
+            <th width="70">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td><input type="checkbox" value="" name=""></td>
+            <td>{$vo.id}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.remark}</td>
+            <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    /*管理员-角色-添加*/
+    function layer_open(title,url,w,h){
+        layer_show(title,url,w,600);
+    }
+    /*管理员-角色-编辑*/
+    function admin_role_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-角色-删除*/
+    function del_all(obj,id){
+        layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: '',
+                dataType: 'json',
+                success: function(data){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                }
+            });
+        });
+    }
+</script>
+{/block}
