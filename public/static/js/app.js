@@ -11,15 +11,19 @@
  * @private
  */
 function _del_recycle_all(url, checkbox_group, msg, return_msg) {
+    id = [];
+    $(":checked[name='" + checkbox_group + "']").each(function () {
+        id.push($(this).val())
+    });
+    if(id.length<1){
+        layer.msg('请勾选数据',{icon: 2});
+        return false;
+    }
     layer.confirm(msg, {
         btn: ['确定', '取消'],
         title: '提示',
         icon: 3
     }, function () {
-        id = [];
-        $(":checked[name='" + checkbox_group + "']").each(function () {
-            id.push($(this).val())
-        });
         $.post(url, {id: id.join(',')}, function (data) {
             if (data.code == 1) {
                 parent.layer.msg(return_msg, {icon: 1, time: 3000});
