@@ -147,8 +147,10 @@ return [
         '__LIB__'       => '/lib',
     ],
     // 默认跳转页面对应的模板文件
-    'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
-    'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+//    'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+//    'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+    'dispatch_success_tmpl'  => MODULE_PATH.'view/template/message.html',// 自定义成功跳转对应的模板文件
+    'dispatch_error_tmpl'    => MODULE_PATH.'view/template/message.html',// 自定义错误跳转对应的模板文件
 
     // +----------------------------------------------------------------------
     // | 异常及错误设置
