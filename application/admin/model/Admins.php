@@ -4,7 +4,7 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Role extends Model{
+class Admins extends Model{
 
     //列表
     public function index($where){
