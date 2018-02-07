@@ -8,7 +8,7 @@ class Role extends Model{
 
     //列表
     public function index(){
-        $list = $this->order('id desc')->paginate(15, false, [
+        $list = $this->order('id desc')->where('isdelete',0)->paginate(15, false, [
             'query' => request()->param(),]);
         return $list;
     }
@@ -45,12 +45,15 @@ class Role extends Model{
     }
 
     /**
-     * 根据ID删除
-     * @param $id
-     * @return int
+     * 软删除
+     * @param $where
+     * @return $this
      */
-    public function del($id){
-        $edit = $this->where('id',$id)->delete();
+    public function del($where){
+        $data=array(
+            'isdelete'=>1
+        );
+        $edit = $this->where($where)->update($data);
         return $edit;
     }
 }

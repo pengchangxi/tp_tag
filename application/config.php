@@ -145,6 +145,7 @@ return [
         '__HUI-ADMIN__' => '/static/h-ui.admin',
         '__HUI__'       => '/static/h-ui',
         '__LIB__'       => '/lib',
+        '__JS__'        => '/static/js',
     ],
     // 默认跳转页面对应的模板文件
 //    'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',

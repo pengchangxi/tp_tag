@@ -14,7 +14,7 @@ class Custom extends TagLib{
 
     //列表页操作栏
     public function tagHandle($tag){
-        $handle = isset($tag['handle']) ?
+        $handle = isset($tag['menu']) ?
             (is_array($tag['menu']) ? $tag['menu'] : explode(',', $tag['menu'])) :
             ['add', 'delete'];
         $titleArr = isset($tag['title']) ?
@@ -33,66 +33,20 @@ class Custom extends TagLib{
                     list($url, $param) = $this->parseUrl($url);
                     $parseStr .= '<a class="btn btn-primary radius mr-5" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')"><i class="Hui-iconfont">&#xe600;</i> ' . $title . '</a>';
                     break;
-                case 'forbid':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '禁用';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= '<a href="javascript:;" onclick="forbid_all(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-warning radius mr-5"><i class="Hui-iconfont">&#xe631;</i> ' . $title . '</a>';
-                    break;
-                case 'resume':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '恢复';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= '<a href="javascript:;" onclick="resume_all(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-success radius mr-5"><i class="Hui-iconfont">&#xe615;</i> ' . $title . '</a>';
-                    break;
                 case 'delete':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '批量删除';
                     list($url, $param) = $this->parseUrl($url);
                     $parseStr .= '<a href="javascript:;" onclick="del_all(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-danger radius mr-5"><i class="Hui-iconfont">&#xe6e2;</i> ' . $title . '</a>';
                     break;
-                case 'recyclebin':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '回收站';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= '<a href="javascript:;" onclick="open_window(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-secondary radius mr-5"><i class="Hui-iconfont">&#xe6b9;</i> ' . $title . '</a>';
-                    break;
-                case 'recycle':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '还原';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= '<a class="btn btn-success radius mr-5" href="javascript:;" onclick="recycle_all(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')"><i class="Hui-iconfont">&#xe610;</i> ' . $title . '</a>';
-                    break;
-                case 'deleteforever':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '彻底删除';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= '<a href="javascript:;" onclick="del_forever_all(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-danger radius mr-5"><i class="Hui-iconfont">&#xe6e2;</i> ' . $title . '</a>';
-                    break;
-                case 'clear':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '清空回收站';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= '<a href="javascript:;" onclick="clear_recyclebin(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-danger radius mr-5"><i class="Hui-iconfont">&#xe6e2;</i> ' . $title . '</a>';
-                    break;
-                case 'ssaveorder':
-                case 'saveorder':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '保存排序';
-                    $parseStr .= '<a href="javascript:;" onclick="saveOrder()" class="btn btn-primary radius mr-5"><i class="Hui-iconfont">&#xe632;</i> ' . $title . '</a>';
-                    break;
                 case 'edit':
-                case 'sedit':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '编辑';
                     list($url, $param) = $this->parseUrl($url, 'id=$vo["id"]');
                     $parseStr .= ' <a title="' . $title . '" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" style="text-decoration:none" class="ml-5"><i class="Hui-iconfont">&#xe6df;</i></a>';
                     break;
-                case 'sdelete':
+                case 'del':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '删除';
                     list($url, $param) = $this->parseUrl($url);
                     $parseStr .= ' <a title="' . $title . '" href="javascript:;" onclick="del(this,\'{$vo.id}\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
-                    break;
-                case 'srecycle':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '还原';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= ' <a href="javascript:;" onclick="recycle(this,\'{$vo.id}\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="label label-success radius ml-5">' . $title . '</a>';
-                    break;
-                case 'sdeleteforever':
-                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '彻底删除';
-                    list($url, $param) = $this->parseUrl($url);
-                    $parseStr .= ' <a href="javascript:;" onclick="del_forever(this,\'{$vo.id}\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="label label-danger radius ml-5">' . $title . '</a>';
                     break;
                 default:
                     // 默认为小菜单

@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use think\Request;
 use app\admin\model\Role as M;
 
 class Role extends Base{
@@ -51,21 +52,28 @@ class Role extends Base{
                 $this->error('修改失败!');
             }
         }
-        $id = input('get.id/d');
+        $request = Request::instance();
+        $id = $request->param('id');
         $info = $role->find($id);
         $this->assign('info',$info);
         return $this->fetch('edit');
     }
 
-    //删除
-    public function del(){
-        $id = input('get.id/d');
-        $role = new M();
-        $edit = $role->del($id);
-        if ($edit){
-            $this->success('删除成功');
+    //软删除
+    public function delete(){
+        $id = input('post.id/');
+        if ($id){
+            $ids=explode(',',$id);
+            $where['id'] = array('in',$ids);
+            $role = new M();
+            $edit = $role->del($where);
+            if ($edit){
+                $this->success('删除成功!');
+            }else{
+                $this->error('删除失败!');
+            }
         }else{
-            $this->error('删除失败');
+            $this->error('操作错误!');
         }
     }
 }
