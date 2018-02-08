@@ -5,7 +5,7 @@
 </head>
 <body>
 <article class="cl pd-20">
-    <form action="" method="post" class="form form-horizontal" id="form-role-add">
+    <form action="" method="post" class="form form-horizontal" id="form-add">
         <input type="hidden" name="id" value="{$info.id ? $info.id : ''}"/>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>节点名称：</label>
@@ -87,7 +87,7 @@
 {include file="template/validation" /}
 <script type="text/javascript">
     $(function(){
-        $("#form-role-add").validate({
+        $("#form-add").validate({
             rules:{
                 name:{
                     required:true,

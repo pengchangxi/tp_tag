@@ -4,13 +4,15 @@
 {/block}
 {block name="main"}
 <div class="page-container">
-    <div class="text-c"> 日期范围：
-        <input type="text" onfocus="" id="datemin" class="input-text Wdate" style="width:120px;">
-        -
-        <input type="text" onfocus="" id="datemax" class="input-text Wdate" style="width:120px;">
-        <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="1" name="">
-        <button type="submit" class="btn btn-success radius" id="2" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
-    </div>
+    <form class="form-inline" role="form" method="post" action="/admin/admins/index">
+        <div class="text-c"> 日期范围：
+            <input type="text" onfocus="" id="datemin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text" onfocus="" id="datemax" class="input-text Wdate" style="width:120px;">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="1" name="">
+            <button type="submit" class="btn btn-success radius" id="2" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+        </div>
+    </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
             {custom:handle /}

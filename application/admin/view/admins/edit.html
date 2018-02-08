@@ -5,7 +5,7 @@
 </head>
 <body>
 <article class="page-container">
-    <form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+    <form action="" method="post" class="form form-horizontal" id="form-add">
         <input type="hidden" name="id" value="{$info.id ? $info.id : ''}">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
@@ -85,7 +85,7 @@
 {include file="template/validation" /}
 <script type="text/javascript">
     $(function(){
-        $("#form-admin-role-add").validate({
+        $("#form-add").validate({
             rules:{
                 account:{
                     required:true,

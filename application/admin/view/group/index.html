@@ -5,11 +5,8 @@
 {block name="main"}
 <div class="page-container">
     <form class="form-inline" role="form" method="post" action="/admin/role/index">
-        <div class="text-c"> 日期范围：
-            <input type="text" onfocus="WdatePicker()" id="datemin" name="start" value="{$start ? $start : ''}" class="input-text Wdate" style="width:120px;">
-            -
-            <input type="text" onfocus="WdatePicker()" id="datemax" name="end" value="{$end ? $end : ''}" class="input-text Wdate" style="width:120px;">
-            <input type="text" class="input-text" name="name" value="{$name ? $name : ''}" style="width:250px" placeholder="角色名称"  >
+        <div class="text-c"> 分组名称：
+            <input type="text" class="input-text" name="name" value="{$name ? $name : ''}" style="width:250px" placeholder="分组名称"  >
             <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
     </form>
@@ -22,14 +19,17 @@
     <table class="table table-border table-bordered table-hover table-bg">
         <thead>
         <tr>
-            <th scope="col" colspan="6">角色管理</th>
+            <th scope="col" colspan="6">分组管理</th>
         </tr>
         <tr class="text-c">
             <th width="25"><input type="checkbox" value="" name=""></th>
             <th width="40">ID</th>
-            <th width="200">角色名</th>
-            <th width="300">描述</th>
-            <th width="70">操作</th>
+            <th width="100">分组名称</th>
+            <th width="100">小图标</th>
+            <th width="100">排序</th>
+            <th width="200">备注</th>
+            <th width="100">状态</th>
+            <th width="100">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -38,7 +38,14 @@
             <td><input type="checkbox" value="{$vo.id}" name="id[]"></td>
             <td>{$vo.id}</td>
             <td>{$vo.name}</td>
+            <td><i class="Hui-iconfont">{$vo.icon}</i></td>
+            <td>{$vo.sort}</td>
             <td>{$vo.remark|mb_substr=0,10,'utf-8'}</td>
+            <td>
+                {if condition="$vo.status==1"}启用
+                {else /}停用
+                {/if}
+            </td>
             <td class="f-14">
                 {custom:handle menu='edit,del' url='edit:id=$vo.id,delete:id=$vo.id' /}
             </td>

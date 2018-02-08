@@ -60,6 +60,7 @@ class Role extends Base{
                 $this->error($validate->getError()); die;
             }
             $role = new M();
+            $data['create_time'] = time();
             $insert_id = $role->add($data);
             if ($insert_id){
                 $this->success('添加成功!','/admin/role/index');
@@ -79,6 +80,7 @@ class Role extends Base{
             if (!$validate->check($data)){
                 $this->error($validate->getError());die;
             }
+            $data['update_time'] = time();
             $edit = $role->edit($data['id'],$data);
             if ($edit){
                 $this->success('修改成功!','/admin/role/index');

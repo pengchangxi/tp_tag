@@ -4,11 +4,11 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Menu extends Model{
+class Node extends Model{
 
     //列表
-    public function index(){
-        $list = $this->select();
+    public function index($where){
+        $list = $this->order('sort asc')->where($where)->select();
         return $list;
     }
 
@@ -51,5 +51,17 @@ class Menu extends Model{
     public function del($where){
         $edit = $this->where($where)->delete();
         return $edit;
+    }
+
+    /**
+     * 获取组ID
+     * @param $moduleId
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function getGroupId($moduleId){
+        $node = $this->where(array("isdelete"=>0,"level"=>2))->where("pid",$moduleId)
+            ->field('group_id')
+            ->select();
+        return $node;
     }
 }
