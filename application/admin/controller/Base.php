@@ -8,7 +8,6 @@ use think\Controller;
 class Base extends Controller{
 
     public function _initialize(){
-        //var_dump(session('adminInfo'));exit();
         if (!session('?adminInfo')) {
             $this->redirect('/admin/login/index');
         }
