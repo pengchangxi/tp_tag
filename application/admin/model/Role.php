@@ -45,7 +45,7 @@ class Role extends Model{
      * @param array|\Closure|null|string|\think\db\Query $id
      * @return array|false|\PDOStatement|string|Model
      */
-    public function find($id){
+    public function lookup($id){
         $info = $this->where('id',$id)->find();
         return $info;
     }

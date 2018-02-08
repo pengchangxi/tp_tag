@@ -4,12 +4,11 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Admins extends Model{
+class Menu extends Model{
 
     //列表
-    public function index($where){
-        $list = $this->order('id desc')->where($where)->where('isdelete',0)->paginate(15, false, [
-            'query' => request()->param(),]);
+    public function index(){
+        $list = $this->select();
         return $list;
     }
 
@@ -35,6 +34,7 @@ class Admins extends Model{
     }
 
     /**
+     * 查询
      * @param $where
      * @return array|false|\PDOStatement|string|Model
      */
@@ -44,15 +44,12 @@ class Admins extends Model{
     }
 
     /**
-     * 软删除
+     * 删除
      * @param $where
-     * @return $this
+     * @return int
      */
     public function del($where){
-        $data=array(
-            'isdelete'=>1
-        );
-        $edit = $this->where($where)->update($data);
+        $edit = $this->where($where)->delete();
         return $edit;
     }
 }

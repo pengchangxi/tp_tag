@@ -71,7 +71,7 @@ class Admins extends Base{
         $request = Request::instance();
         $id = $request->param('id');
         $where['id'] = $id;
-        $info = $admins->find($where);
+        $info = $admins->lookup($where);
         $role = new Role();
         $roles = $role->getList();
         $this->assign('roles',$roles);

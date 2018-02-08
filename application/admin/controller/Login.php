@@ -50,7 +50,7 @@ class Login extends Controller{
             'account' =>$account,
             'status' =>1
         );
-        $authInfo=$admin->find($map);
+        $authInfo=$admin->lookup($map);
         if (empty($authInfo)){
             $this->error('帐号不存在或已禁用！','/admin/login/index');
         }else{

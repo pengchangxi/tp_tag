@@ -1,0 +1,53 @@
+{extend name='template/base'/}
+{block name='css'}
+<link rel="stylesheet" type="text/css" href="/sys/static/css/pagination.css" />
+{/block}
+{block name='main'}
+
+<div class="Hui-article">
+        <article class="cl pd-20">
+           <!-- <form class="form-inline" role="form" method="get" action="/admin/menu/index">
+                <div class="text-c" >
+                    节点名称：<input type="text" class="input-text" style="width:250px" placeholder="输入用户名" name="name" value="{$name ? $name : ''}">
+                    状态: <span class="select-box inline">
+				<select class="select" id="" name="status">
+					<option value="">全部</option>
+					<option value="1"  <?php echo isset($status)&&$status==1?" selected":""; ?>>显示</option>
+                    <option value="0"  <?php echo isset($status)&&$status===0?" selected":""; ?>>隐藏</option>
+				</select>
+                </span>
+                    <button type="submit" class="btn btn-success radius"  name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                </div>
+            </form>-->
+            {custom:handle menu='add' /}
+            <div class="mt-20">
+                <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <thead>
+
+                    <tr class="">
+                        <th width="20">ID</th>
+                        <th width="80">节点名称</th>
+                        <th width="100">URL</th>
+                        <th width="40">状态</th>
+                        <th width="80">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+
+{/block}
+{block name='js'}
+<script>
+    function layer_open(title,url,w){
+        layer_show(title,url,w,600);
+    }
+
+</script>
+{/block}

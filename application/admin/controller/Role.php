@@ -88,7 +88,7 @@ class Role extends Base{
         }
         $request = Request::instance();
         $id = $request->param('id');
-        $info = $role->find($id);
+        $info = $role->lookup($id);
         $this->assign('info',$info);
         return $this->fetch('edit');
     }
