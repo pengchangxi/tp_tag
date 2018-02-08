@@ -13,17 +13,17 @@
 <input type="hidden" id="TenantId" name="TenantId" value="" />
 <div class="loginWraper">
     <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="../index.html" method="post">
+        <form class="form form-horizontal" action="" id=form-user-login method="post">
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="1" name="" type="text" placeholder="账户" class="input-text size-L">
+                    <input id="1" name="" type="text" placeholder="账户" required class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="3" name="" type="password" placeholder="密码" class="input-text size-L">
+                    <input id="3" name="" type="password" placeholder="密码" required class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
@@ -50,7 +50,34 @@
 </div>
 <div class="footer">Copyright 你的公司名称 by H-ui.admin v3.1</div>
 <script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__LIB__/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="__HUI__/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#form-user-login").validate({
+            submitHandler:function(form){
+                $(form).ajaxSubmit({
+                    type: 'post', // 提交方式 get/post
+                    url: '/admin/login/checkLogin', // 需要提交的 url
+                    success: function(data) { // data 保存提交后返回的数据，一般为 json 数据
+                        if(data.code!=1){
+                            layer.msg(data.msg,{icon:2,time:1000});
+                            document.getElementById('verifyImg').src='/admin/login/verify?' + Math.random();
+                            return false;
+                        }
+                        layer.msg(data.msg,{icon:1,time:1000});
+                        setTimeout(function(){
+                            window.location.href=data.url;
+                        }, 1000);
+                    }
 
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

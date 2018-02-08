@@ -29,18 +29,17 @@ class Admins extends Model{
      * @param $data
      * @return $this
      */
-    public function edit($id,$data){
-        $edit = $this->where('id',$id)->update($data);
+    public function edit($where,$data){
+        $edit = $this->where($where)->update($data);
         return $edit;
     }
 
     /**
-     * 根据ID查询
-     * @param array|\Closure|null|string|\think\db\Query $id
+     * @param array|\Closure|null|string|\think\db\Query $where
      * @return array|false|\PDOStatement|string|Model
      */
-    public function find($id){
-        $info = $this->where('id',$id)->find();
+    public function find($where){
+        $info = $this->where($where)->find();
         return $info;
     }
 

@@ -95,7 +95,8 @@ class Role extends Base{
 
     //软删除
     public function delete(){
-        $id = input('post.id/');
+        $request = Request::instance();
+        $id = $request->param('id');
         if ($id){
             $ids=explode(',',$id);
             $where['id'] = array('in',$ids);

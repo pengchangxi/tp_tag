@@ -3,15 +3,16 @@
 namespace app\admin\controller;
 
 use think\Controller;
-use think\Session;
+
 
 class Base extends Controller{
 
     public function _initialize(){
-//        if (!Session::has('adminInfo')) {
-//            $this->redirect('/admin/login/index');
-//        }
-//
-//        $this->assign('authInfo',session('adminInfo'));
+        //var_dump(session('adminInfo'));exit();
+        if (!session('?adminInfo')) {
+            $this->redirect('/admin/login/index');
+        }
+
+        $this->assign('authInfo',session('adminInfo'));
     }
 }

@@ -1,8 +1,10 @@
 <?php
+
 namespace app\admin\validate;
 use think\Validate;
 
 class Role extends Validate{
+
     protected $rule = [
         'name'  =>  'min:2|require|unique:role',
     ];

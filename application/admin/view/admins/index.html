@@ -36,7 +36,7 @@
             <td><input type="checkbox" value="{$vo.id}" name="id[]"></td>
             <td>{$vo.id}</td>
             <td>{$vo.account}</td>
-            <td>{$vo.remark|mb_substr=0,10,'utf-8'}</td>
+            <td>{$vo.role_id}</td>
             <td class="f-14">
                 {custom:handle menu='edit,del' url='edit:id=$vo.id,delete:id=$vo.id' /}
             </td>

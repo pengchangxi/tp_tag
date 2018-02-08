@@ -55,6 +55,17 @@
         });
     }
 </script>
+<script type="text/javascript">
+    var urlstr = location.href;
+    $("ul li a").each(function () {
+        if (urlstr.indexOf($(this).attr('href'))>-1 && $(this).attr('href')!='') {
+            $(this).parents("dd").css('display','block');
+            $(this).parent().addClass('selected');
+        } else {
+            $(this).parent().removeClass('selected');
+        }
+    });
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 {block name="js"}{/block}
 
