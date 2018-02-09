@@ -19,4 +19,9 @@ class Admins extends Validate{
         'mobile.regex'=>'手机号不正确',
     ];
 
+    protected $scene = [
+        'add'  =>  ['account','email','mobile','password'],
+        'edit'  => ['account' ,'email','mobile'],
+    ];
+
 }

@@ -24,7 +24,7 @@ class Admins extends Base{
             $admins = new M();
             $data = input('post.');
             $validate = Loader::validate('Admins');
-            if(!$validate->check($data)){//表单验证
+            if(!$validate->scene('add')->check($data)){//表单验证
                 $this->error($validate->getError()); die;
             }
             $salt = random(6);
@@ -49,7 +49,7 @@ class Admins extends Base{
         if (request()->isPost()){
             $data = input('post.');
             $validate = Loader::validate('Admins');
-            if(!$validate->check($data)){//表单验证
+            if(!$validate->scene('edit')->check($data)){//表单验证
                 $this->error($validate->getError()); die;
             }
             if (!empty(trim($data['password']))){
