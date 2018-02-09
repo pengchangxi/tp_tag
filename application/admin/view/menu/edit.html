@@ -33,13 +33,13 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">描述：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="desc" cols="" rows="" class="textarea"  placeholder="说点什么" >{$info.desc ? $info.desc : ''}</textarea>
+                <textarea name="remark" cols="" rows="" class="textarea"  placeholder="说点什么" >{$info.remark ? $info.remark : ''}</textarea>
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">排序：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="number" class="input-text" value="{$info.list_order ? $info.list_order : ''}" placeholder="请输入节点名称" id="list_order" name="list_order">
+                <input type="number" class="input-text" value="{$info.sort ? $info.sort : ''}" placeholder="" id="sort" name="sort">
             </div>
         </div>
         <div class="row cl">
@@ -97,7 +97,6 @@
                 status:{
                     required:true
                 }
-
             },
             onkeyup:false,
             focusCleanup:true,

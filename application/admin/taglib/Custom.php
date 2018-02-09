@@ -38,6 +38,16 @@ class Custom extends TagLib{
                     list($url, $param) = $this->parseUrl($url);
                     $parseStr .= '<a href="javascript:;" onclick="del_all(\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="btn btn-danger radius mr-5"><i class="Hui-iconfont">&#xe6e2;</i> ' . $title . '</a>';
                     break;
+                case 'sadd':
+                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '添加子节点';
+                    list($url, $param) = $this->parseUrl($url, 'pid=$vo["id"]');
+                    $parseStr .= ' <a title="' . $title . '" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" style="text-decoration:none" class="ml-5"><i class="Hui-iconfont">&#xe6df;</i></a>';
+                    break;
+                case 'authorize':
+                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '权限设置';
+                    list($url, $param) = $this->parseUrl($url, 'pid=$vo["id"]');
+                    $parseStr .= ' <a title="' . $title . '" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" style="text-decoration:none" class="ml-5"><i class="Hui-iconfont">&#xe63f;</i></a>';
+                    break;
                 case 'edit':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '编辑';
                     list($url, $param) = $this->parseUrl($url, 'id=$vo["id"]');
@@ -57,7 +67,6 @@ class Custom extends TagLib{
             }
 
         }
-
         return $parseStr;
     }
 

@@ -1,3 +1,41 @@
 @charset "utf-8";
 /* 你自己的样式 */
 
+.tp-page-aside {
+    left: 220px;
+    top: 150px;
+    bottom: 0;
+    width: 280px;
+}
+.tp-panel li {
+    line-height: 28px;
+}
+.tp-panel li:hover,
+.tp-panel li.focus {
+    color: #148cf1;
+    background-color: rgba(238, 238, 238, 0.98);
+}
+.tp-panel li a {
+    color: inherit;
+    line-height: 28px;
+    border-bottom: none;
+    font-weight: normal;
+}
+.tp-panel-module {
+    margin-top: 30px;
+}
+.tp-panel-module .panel-body {
+    height: 160px;
+    overflow: auto;
+}
+.tp-panel-group {
+    margin-top: 30px;
+}
+.tp-panel-group .panel-body {
+    overflow: auto;
+}
+.tp-page-main {
+    padding-top: 40px;
+    margin-left: 300px;
+}
+

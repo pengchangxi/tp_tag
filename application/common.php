@@ -9,6 +9,9 @@
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+use think\Response;
+use think\Request;
+use think\Url;
 // 应用公共文件
 /**
  * 产生随机字符串
@@ -37,3 +40,5 @@ function format_bytes($size, $delimiter = '') {
     for ($i = 0; $size >= 1024 && $i < 5; $i++) $size /= 1024;
     return round($size, 2) . $delimiter . $units[$i];
 }
+
+

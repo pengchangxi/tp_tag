@@ -1,0 +1,56 @@
+{extend name='template/base'/}
+{block name='css'}
+{/block}
+{block name='main'}
+
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            {custom:handle menu="add" title="添加节点" /}
+        </span>
+    </div>
+
+    <table class="table table-border table-bordered table-hover table-bg">
+        <thead>
+            <tr>
+                <th scope="col" colspan="6">菜单管理</th>
+            </tr>
+            <tr class="">
+                <th width="20">ID</th>
+                <th width="80">节点名称</th>
+                <th width="100">URL</th>
+                <th width="40">状态</th>
+                <th width="80">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {$categories}
+        </tbody>
+    </table>
+
+</div>
+
+{/block}
+{block name='js'}
+<script>
+    function layer_open(title,url,w){
+        layer_show(title,url,w,650);
+    }
+    function menu_del(obj,id){
+        layer.confirm('确认要删除吗？',function(){
+            $.ajax({
+                type: "GET",
+                url: '/sys/admin/menu/del?id=' + id,
+                success: function (data) {
+                    if (data.code == 1){
+                        layer.msg(data.msg, {icon: 1,time:1000});
+                        $(obj).parents("tr").remove();
+                    }else {
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}

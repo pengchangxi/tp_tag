@@ -3,12 +3,13 @@
 namespace app\admin\model;
 
 use think\Model;
+use think\Cache;
 
-class Node extends Model{
+class Menu extends Model{
 
     //列表
-    public function index($where){
-        $list = $this->order('sort asc')->where($where)->select();
+    public function index(){
+        $list = $this->select();
         return $list;
     }
 
@@ -54,14 +55,30 @@ class Node extends Model{
     }
 
     /**
-     * 获取组ID
-     * @param $moduleId
-     * @return false|\PDOStatement|string|\think\Collection
+     * 更新缓存
+     * @param  $data
+     * @return array
      */
-    public function getGroupId($moduleId){
-        $node = $this->where(array("isdelete"=>0,"level"=>2))->where("pid",$moduleId)
-            ->field('group_id')
-            ->select();
-        return $node;
+    public function menuCache($data = null){
+        if (empty($data)) {
+            $data = $this->order("sort", "ASC")->column('');
+            Cache::set('Menu', $data, 0);
+        } else {
+            Cache::set('Menu', $data, 0);
+        }
+        return $data;
     }
+
+    /**
+     * 查找URL
+     * @param $menuId
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getUrl($menuId){
+        return $this->where(["id" => $menuId])->field("url")->find();
+    }
+
+
+
+
 }
