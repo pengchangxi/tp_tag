@@ -28,6 +28,7 @@
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__LIB__/jquery.treetable/jquery.treetable.js"></script>
+<script type="text/javascript" src="__JS__/app_add.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#dnd-example").treeTable({
@@ -68,26 +69,7 @@
         }
     }
 
-    $("#form-add").validate({
-        onkeyup:false,
-        focusCleanup:true,
-        success:"valid",
-        submitHandler:function(form){
-            $(form).ajaxSubmit({
-                type: 'post', // 提交方式 get/post
-                url: '/admin/role/authorize', // 需要提交的 url
-                success: function(data) { // data 保存提交后返回的数据，一般为 json 数据
-                    if(data.code!=1){
-                        layer.msg(data.msg,{icon:2,time:1000});
-                        return false;
-                    }
-                    parent.layer.msg(data.msg,{icon:1,time:1000});
-                    var index = parent.layer.getFrameIndex(window.name);
-                    parent.layer.close(index);
-                }
-            });
-        }
-    });
+    add('/admin/role/authorize')
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

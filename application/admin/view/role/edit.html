@@ -45,44 +45,10 @@
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__JS__/app_add.js"></script>
 {include file="template/validation" /}
 <script type="text/javascript">
-    $(function(){
-        $("#form-add").validate({
-            rules:{
-                name:{
-                    required:true,
-                    minlength:2,
-                    maxlength:16
-                },
-                status:{
-                    required:true
-                }
-
-            },
-            onkeyup:false,
-            focusCleanup:true,
-            success:"valid",
-            submitHandler:function(form){
-                $(form).ajaxSubmit({
-                    type: 'post', // 提交方式 get/post
-                    url: '{if condition="!empty($info)"}/admin/role/edit{else/}/admin/role/add{/if}', // 需要提交的 url
-                    success: function(data) { // data 保存提交后返回的数据，一般为 json 数据
-                        if(data.code!=1){
-                            layer.msg(data.msg,{icon:2,time:1000});
-                            return false;
-                        }
-                        layer.msg(data.msg,{icon:1,time:1000});
-                        setTimeout(function(){
-                            parent.window.location.href=data.url;
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                        }, 1000);
-                    }
-                });
-            }
-        });
-    });
+    add('{if condition="!empty($info)"}/admin/role/edit{else/}/admin/role/add{/if}')
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

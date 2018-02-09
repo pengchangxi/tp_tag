@@ -142,7 +142,7 @@ class Role extends Base{
                         $access->add($data);
                     }
                 }
-                $this->success("授权成功！");
+                $this->success("授权成功!",'/admin/role/index');
             } else {
                 //当没有数据时，清除当前角色授权
                 $access->del($roleId);
