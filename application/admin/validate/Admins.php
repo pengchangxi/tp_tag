@@ -9,6 +9,7 @@ class Admins extends Validate{
         'account'  =>  'min:5|require|unique:admins',
         'email'=>'email',
         'mobile'=>'regex:/^(1)[0-9]{10}$/',
+        'password'=>'require'
     ];
 
     protected $message = [
@@ -17,6 +18,7 @@ class Admins extends Validate{
         'account.unique' => '账户已存在',
         'email.email' => 'email地址不正确',
         'mobile.regex'=>'手机号不正确',
+        'password.require'=>'密码不能为空',
     ];
 
     protected $scene = [
