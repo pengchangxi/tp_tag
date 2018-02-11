@@ -23,7 +23,7 @@ class Admins extends Validate{
 
     protected $scene = [
         'add'  =>  ['account','email','mobile','password'],
-        'edit'  => ['account' ,'email','mobile'],
+        'edit'  => ['account','email','mobile'],
     ];
 
 }
