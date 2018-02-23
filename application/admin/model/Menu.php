@@ -8,11 +8,10 @@ use think\Cache;
 class Menu extends Base{
 
     //列表
-    public function index(){
+    public function getList(){
         $list = $this->select();
         return $list;
     }
-
 
     /**
      * 删除

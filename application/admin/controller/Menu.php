@@ -12,7 +12,7 @@ class Menu extends Base{
     //列表
     public function index(){
         $menu = new M();
-        $objResult = $menu->index();
+        $objResult = $menu->getList();
         $arrResult = $objResult ? collection($objResult)->toArray() : [];
         $tree       = new Tree();
         $tree->icon = ['&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ '];
@@ -21,7 +21,7 @@ class Menu extends Base{
         foreach ($arrResult as $r) {
             $r['str_manage'] = "<a title=\"添加\" href=\"javascript:;\" onclick=\"layer_open('菜单添加','".url('/admin/menu/add',array('pid'=>$r['id']))."','','510')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe600;</i>添加子节点</a>
             <a title=\"编辑\" href=\"javascript:;\" onclick=\"layer_open('菜单编辑','".url('/admin/menu/edit',array('id'=>$r['id']))."','','510')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i>编辑</a>
-            <a title=\"删除\" href=\"javascript:;\" onclick=\"del(this,'".$r['id']."')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i>删除</a>";
+            <a title=\"删除\" href=\"javascript:;\" onclick=\"menu_del(this,'".$r['id']."')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i>删除</a>";
             $r['status']     = $r['status'] ? "<span class=\"label label-success radius\">显示</span>" : "<span class=\"label label-warning radius\">隐藏</span>";
             $array[]         = $r;
         }

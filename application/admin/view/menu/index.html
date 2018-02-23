@@ -32,6 +32,7 @@
 
 {/block}
 {block name='js'}
+<script type="text/javascript" src="__JS__/app.js" ></script>
 <script>
     function layer_open(title,url,w){
         layer_show(title,url,w,650);
@@ -40,7 +41,7 @@
         layer.confirm('确认要删除吗？',function(){
             $.ajax({
                 type: "GET",
-                url: '/sys/admin/menu/del?id=' + id,
+                url: '/admin/menu/delete?id=' + id,
                 success: function (data) {
                     if (data.code == 1){
                         layer.msg(data.msg, {icon: 1,time:1000});
