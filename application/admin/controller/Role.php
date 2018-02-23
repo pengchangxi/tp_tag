@@ -84,7 +84,8 @@ class Role extends Base{
                 $this->error($validate->getError());die;
             }
             $data['update_time'] = time();
-            $edit = $role->edit($data['id'],$data);
+            $where['id'] = $data['id'];
+            $edit = $role->edit($where,$data);
             if ($edit){
                 $this->success('修改成功!','/admin/role/index');
             }else{
@@ -93,7 +94,8 @@ class Role extends Base{
         }
         $request = Request::instance();
         $id = $request->param('id');
-        $info = $role->lookup($id);
+        $where['id'] = $id;
+        $info = $role->lookup($where);
         $this->assign('info',$info);
         return $this->fetch('edit');
     }

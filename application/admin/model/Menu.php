@@ -5,7 +5,7 @@ namespace app\admin\model;
 use think\Model;
 use think\Cache;
 
-class Menu extends Model{
+class Menu extends Base{
 
     //列表
     public function index(){
@@ -13,36 +13,6 @@ class Menu extends Model{
         return $list;
     }
 
-    /**
-     * 添加
-     * @param $data
-     * @return int|string
-     */
-    public function add($data){
-        $insert_id = $this->insert($data);
-        return $insert_id;
-    }
-
-    /**
-     * 修改
-     * @param $where
-     * @param $data
-     * @return $this
-     */
-    public function edit($where,$data){
-        $edit = $this->where($where)->update($data);
-        return $edit;
-    }
-
-    /**
-     * 查询
-     * @param $where
-     * @return array|false|\PDOStatement|string|Model
-     */
-    public function lookup($where){
-        $info = $this->where($where)->find();
-        return $info;
-    }
 
     /**
      * 删除

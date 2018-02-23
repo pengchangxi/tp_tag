@@ -9,6 +9,39 @@ use think\Request;
 
 class Admins extends Base{
 
+    //多条件查询
+    protected function _search(){
+        $where = array();
+        $fields=array('account','start','end');
+        foreach ($fields as $key => $val) {
+            if (isset($_REQUEST[$val]) && $_REQUEST[$val] != '') {
+                switch ($val) {
+                    case 'account':
+                        $where [$val] = array('like','%'.$_REQUEST[$val].'%');
+                        break;
+                    case 'start':
+                        if (isset($_REQUEST[$val]) && $_REQUEST[$val] != '') {
+                            $where['create_time'] = array('EGT', strtotime(date('Y-m-d 00:00:00', strtotime($_REQUEST['start']))));
+                        }
+                        break;
+                    case 'end':
+                        if (isset($_REQUEST[$val]) && $_REQUEST[$val] != '') {
+                            $where['create_time'] = array('ELT', strtotime(date('Y-m-d 23:59:59', strtotime($_REQUEST['end']))));
+                        }
+                        break;
+                    default:
+                        $where [$val] = $_REQUEST[$val];
+                        break;
+                }
+                $this->assign($val, $_REQUEST[$val]);
+            }
+        }
+        if (isset($_REQUEST ['start']) && $_REQUEST ['start'] != '' && isset($_REQUEST ['end']) && $_REQUEST ['end'] != '') {
+            $where ['create_time'] = array('between', [strtotime(date("Y-m-d 00:00:00", strtotime($_REQUEST ['start']))), strtotime(date("Y-m-d 23:59:59", strtotime($_REQUEST ['end'])))]);
+        }
+        return $where;
+    }
+
     public function index(){
         $admins = new M();
         $where = array();
