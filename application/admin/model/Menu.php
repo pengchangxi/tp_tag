@@ -61,6 +61,15 @@ class Menu extends Base{
         return $menuList;
     }
 
+    /**
+     * 根据URL查询islog是否记录日志
+     * @param $url
+     * @return mixed
+     */
+    public function getLogByUrl($url){
+        return $this->where('url',$url)->value('islog');
+    }
+
 
 
 

@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Request;
 use app\admin\model\Menu;
+use app\admin\model\AdminLog;
 
 
 class Base extends Controller{
@@ -19,6 +20,11 @@ class Base extends Controller{
         }
         $request = Request::instance();
         $url = $this->getUrl();
+        $menu = new Menu();
+        $isLog = $menu->getLogByUrl($url);
+        if ($isLog){
+            $this->adminLog();//操作日志
+        }
         if (!in_array($request->controller(),$this->ignoreAction)){
             if ($request->controller()!='Index'){
                 $access= \Rbac\Rbac::accessCheck(session('adminInfo')['role_id'],$url);
@@ -95,4 +101,24 @@ class Base extends Controller{
         $url = '/' . $module . '/' . $controller . '/' . $action;
         return $url;
     }
+
+    /**
+     * 操作日志
+     */
+    protected function adminLog(){
+        $request = Request::instance();
+        $url = $request->url();
+        $log = array();
+        $log['aid'] = session('adminInfo')['id'];
+        $log['url'] = $url;
+        $log['create_time'] = time();
+        $data=array_merge($_GET,$_POST);
+        $log['data'] = empty($data)?'':json_encode($data);
+        $adminLog = new AdminLog();
+        $adminLog->add($log);
+    }
+
+
+
+
 }

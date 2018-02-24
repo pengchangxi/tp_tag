@@ -6,44 +6,39 @@
 <div class="page-container">
     <form class="form-inline" role="form" method="post" action="/admin/article/index">
         <div class="text-c">
-            标题：<input type="text" class="input-text" name="title" value="{$title ? $title : ''}" style="width:200px" >
-            作者：<input type="text" class="input-text" name="author" value="{$author ? $author : ''}" style="width:200px" >
+            操作人：<input type="text" class="input-text" name="name" value="{$title ? $title : ''}" style="width:200px" >
+            操作时间：
+            <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;" name="start" value="{$start ? $start : ''}">
+            -
+            <input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;" name="end" value="{$end ? $end : ''}">
+
             <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
     </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-        {custom:handle /}
         </span>
         <span class="r">共有数据：<strong>{$count ? $count : 0}</strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-bg table-hover table-sort">
         <thead>
         <tr>
-            <th scope="col" colspan="7">文章管理</th>
+            <th scope="col" colspan="4">操作日志</th>
         </tr>
         <tr class="text-c">
-            <th width="25"><input type="checkbox" value="" name=""></th>
-            <th width="200">标题</th>
-            <th width="100">作者</th>
-            <th width="100">类型</th>
-            <th width="100">浏览次数</th>
-            <th width="100">标签</th>
-            <th width="70">操作</th>
+            <th width="60">操作人</th>
+            <th width="100">方法</th>
+            <th width="200">数据</th>
+            <th width="80">操作时间</th>
         </tr>
         </thead>
         <tbody>
         {volist name="list" id="vo"}
         <tr class="text-c">
-            <td><input type="checkbox" value="{$vo.id}" name="id[]"></td>
-            <td>{$vo.title}</td>
-            <td>{$vo.author}</td>
-            <td>{$vo.type}</td>
-            <td>{$vo.view}</td>
-            <td>{$vo.tags}</td>
-            <td class="f-14">
-                {custom:handle menu='edit,del' url='edit:id=$vo.id,delete:id=$vo.id' /}
-            </td>
+            <td>{$vo.items.realname}</td>
+            <td>{$vo.url}</td>
+            <td>{$vo.data}</td>
+            <td>{$vo.create_time}</td>
         </tr>
         {/volist}
         </tbody>
