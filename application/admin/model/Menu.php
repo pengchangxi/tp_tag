@@ -47,6 +47,20 @@ class Menu extends Base{
         return $this->where(["id" => $menuId])->field("url")->find();
     }
 
+    /**
+     * 根据角色ID获取权限列表
+     * @param $roleid
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function getMenuList($roleid){
+        $where=array(
+            'm.status' => 1,
+            'a.role_id'=>$roleid
+        );
+        $menuList=db('access')->alias('a')->join('menu m','m.url = a.rule_name')->where($where)->order('m.sort desc')->select();
+        return $menuList;
+    }
+
 
 
 

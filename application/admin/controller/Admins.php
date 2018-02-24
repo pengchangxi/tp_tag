@@ -44,7 +44,7 @@ class Admins extends Base{
 
     public function index(){
         $admins = new M();
-        $where = array();
+        $where = $this->_search();
         $list = $admins->index($where);
         $this->assign('list',$list);
         $this->assign('count',count($list));

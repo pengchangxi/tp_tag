@@ -4,10 +4,17 @@
 {/block}
 {block name="main"}
 <div class="page-container">
-    <form class="form-inline" role="form" method="post" action="/admin/article/index">
+    <form class="form-inline" role="form" method="post" action="/admin/channel/index">
         <div class="text-c">
-            标题：<input type="text" class="input-text" name="name" value="{$title ? $title : ''}" style="width:200px" >
-            作者：<input type="text" class="input-text" name="author" value="{$author ? $author : ''}" style="width:200px" >
+            渠道名称：<input type="text" class="input-text" name="name" value="{$name ? $name : ''}" style="width:200px" >
+            渠道编号：<input type="text" class="input-text" name="channel" value="{$channel ? $channel : ''}" style="width:200px" >
+            是否推广: <span class="select-box inline">
+				<select class="select" id="" name="spread">
+					<option value="">全部</option>
+					<option value="1"  <?php echo isset($spread)&&$spread==1?" selected":""; ?>>是</option>
+                    <option value="0"  <?php echo isset($spread)&&$spread==0?" selected":""; ?>>否</option>
+				</select>
+                </span>
             <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
     </form>
@@ -20,27 +27,31 @@
     <table class="table table-border table-bordered table-bg table-hover table-sort">
         <thead>
         <tr>
-            <th scope="col" colspan="7">文章管理</th>
+            <th scope="col" colspan="9">渠道列表</th>
         </tr>
         <tr class="text-c">
             <th width="25"><input type="checkbox" value="" name=""></th>
-            <th width="200">标题</th>
-            <th width="100">作者</th>
-            <th width="100">类型</th>
-            <th width="100">浏览次数</th>
-            <th width="100">标签</th>
-            <th width="70">操作</th>
+            <th width="100">渠道编号</th>
+            <th width="100">渠道名称</th>
+            <th width="70">新版ID</th>
+            <th width="70">强升ID</th>
+            <th width="70">升级间隔</th>
+            <th width="230">下载地址</th>
+            <th width="80">是否推广</th>
+            <th width="80">操作</th>
         </tr>
         </thead>
         <tbody>
         {volist name="list" id="vo"}
         <tr class="text-c">
             <td><input type="checkbox" value="{$vo.id}" name="id[]"></td>
-            <td>{$vo.title}</td>
-            <td>{$vo.author}</td>
-            <td>{$vo.type}</td>
-            <td>{$vo.view}</td>
-            <td>{$vo.tags}</td>
+            <td>{$vo.channel}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.new_code}</td>
+            <td>{$vo.force_code}</td>
+            <td>{$vo.duration}</td>
+            <td>{$vo.url}</td>
+            <td>{if condition="$vo.spread==1"}<span class="label label-success radius">是</span>{else /}<span class="label label-warning radius">否</span>{/if}</td>
             <td class="f-14">
                 {custom:handle menu='edit,del' url='edit:id=$vo.id,delete:id=$vo.id' /}
             </td>

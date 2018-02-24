@@ -5,10 +5,7 @@
 {block name="main"}
 <div class="page-container">
     <form class="form-inline" role="form" method="post" action="/admin/role/index">
-        <div class="text-c"> 日期范围：
-            <input type="text" onfocus="WdatePicker()" id="datemin" name="start" value="{$start ? $start : ''}" class="input-text Wdate" style="width:120px;">
-            -
-            <input type="text" onfocus="WdatePicker()" id="datemax" name="end" value="{$end ? $end : ''}" class="input-text Wdate" style="width:120px;">
+        <div class="text-c"> 角色名：
             <input type="text" class="input-text" name="name" value="{$name ? $name : ''}" style="width:250px" placeholder="角色名称"  >
             <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
@@ -17,7 +14,7 @@
         <span class="l">
         {custom:handle /}
         </span>
-        <span class="r">共有数据：<strong>{$count ? $count : ''}</strong> 条</span>
+        <span class="r">共有数据：<strong>{$count ? $count : 0}</strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-hover table-bg">
         <thead>

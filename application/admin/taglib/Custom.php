@@ -2,6 +2,7 @@
 
 namespace app\admin\taglib;
 
+use think\Request;
 use think\template\TagLib;
 
 class Custom extends TagLib{
@@ -24,9 +25,18 @@ class Custom extends TagLib{
             (is_array($tag['url']) ? $tag['url'] : explode(',', $tag['url'])) :
             [];
         $parseStr = '';
+        //////////////////获取当前列表模块和控制器//////////////////////////////////
+        $request = Request::instance();
+        $module = $request->module();//模块
+        $controller = $request->controller();//控制器
+        $controller = strtolower(preg_replace('/((?<=[a-z])(?=[A-Z]))/', '_', $controller));//将AbcDef转化为abc_def
+        ///////////////////////////////////////////////////////////////////////////
         foreach ($handle as $k => $m) {
             $m = strtolower($m);
             $url = isset($urlArr[$k]) && $urlArr[$k] ? $urlArr[$k] : (substr($m, 0, 1) == 's' ? substr($m, 1) : $m);
+            $urls = explode(":", $url);
+            $ver_url = '/'.$module.'/'.$controller.'/'.$urls[0];
+            $parseStr .= "<?php if (\Rbac\Rbac::AccessCheck('".session('adminInfo')['role_id']."','" . $ver_url . "')) : ?>";
             switch ($m) {
                 case 'add':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '添加';
@@ -65,7 +75,7 @@ class Custom extends TagLib{
                     $class = isset($tag['class']) ? $tag['class'] : 'label-primary';
                     $parseStr .= ' <a title="' . $title . '" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="label radius ml-5 ' . $class . '">' . $title . '</a>';
             }
-
+            $parseStr .= "<?php endif; ?>";
         }
         return $parseStr;
     }

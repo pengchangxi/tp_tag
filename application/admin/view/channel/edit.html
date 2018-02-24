@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {include file="template/head" /}
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-add">
+        <input type="hidden" name="id" value="{$info.id ? $info.id : ''}">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>渠道名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$info.name ? $info.name : ''}" placeholder=""  name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>渠道编号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$info.channel ? $info.channel : ''}" placeholder=""  name="channel">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>下载地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$info.url ? $info.url : ''}" placeholder=""  name="url">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>最新版本ID：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$info.new_code ? $info.new_code : ''}" placeholder=""  name="new_code">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>强升版本ID：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$info.force_code ? $info.force_code : ''}" placeholder=""  name="force_code">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">升级间隔：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$info.duration ? $info.duration : 0}" placeholder="单位秒"  name="duration">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">所属商户：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box inline">
+				<select class="select" id="" name="aid">
+					<option value="">请选择</option>
+                    {if condition="isset($aList)"}
+                    {volist name='aList' id='vo'}
+                    {if condition="isset($info) && $vo.id==$info.aid"}
+                    <option value="{$vo.id}"  selected>{$vo.realname}--{$vo.account}</option>
+                    {else /}
+                    <option value="{$vo.id}" >{$vo.realname}--{$vo.account}</option>
+                    {/if}
+                    {/volist}
+                    {/if}
+				</select>
+                </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">是否推广：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="external-1" value="1" name="spread" <?php echo isset($info['spread'])&&$info['spread']==1 ? "checked":""; ?> >
+                    <label >是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="external-2" value="0" name="spread" <?php echo isset($info['spread'])&&$info['spread']==0  || empty($info) ? "checked":""; ?>>
+                    <label >否</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea type="text" class="textarea" name="remark">{$info.remark ? $info.remark : ''}</textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-success radius" id="admin-role-save" ><i class="icon-ok"></i> 确定</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+{include file="template/footer"}
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__JS__/app_add.js"></script>
+{include file="template/validation" /}
+<script type="text/javascript">
+    add('{if condition="!empty($info)"}/admin/channel/edit{else/}/admin/channel/add{/if}')
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
