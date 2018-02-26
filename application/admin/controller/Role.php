@@ -36,7 +36,7 @@ class Role extends Base{
         $where = $this->_search();
         $list = $role->index($where);
         $this->assign('list',$list);
-        $this->assign('count',count($list));
+        $this->assign('count',$role->total($where));
         $this->assign('page',$list->render());
         return $this->fetch();
     }

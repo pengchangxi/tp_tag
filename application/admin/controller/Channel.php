@@ -37,7 +37,7 @@ class Channel extends Base{
         $where = $this->_search();
         $list = $channel->index($where);
         $this->assign('list',$list);
-        $this->assign('count',count($list));
+        $this->assign('count',$channel->total($where));
         $this->assign('page',$list->render());
         return $this->fetch();
     }

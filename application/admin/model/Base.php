@@ -6,11 +6,25 @@ use think\Model;
 
 class Base extends Model{
 
-    //列表
+    /**
+     * 列表
+     * @param $where
+     * @return \think\Paginator
+     */
     public function index($where){
         $list = $this->order('id desc')->where($where)->where('isdelete',0)->paginate(15, false, [
             'query' => request()->param(),]);
         return $list;
+    }
+
+    /**
+     * 数据总数
+     * @param $where
+     * @return int|string
+     */
+    public function total($where){
+        $total = $this->where($where)->where('isdelete',0)->count();
+        return $total;
     }
 
     /**

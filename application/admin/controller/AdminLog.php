@@ -11,7 +11,7 @@ class AdminLog extends Base{
         $where = array();
         $list = $log->index($where);
         $this->assign('list',$list);
-        $this->assign('count',count($list));
+        $this->assign('count',$log->total($where));
         $this->assign('page',$list->render());
         return $this->fetch();
     }

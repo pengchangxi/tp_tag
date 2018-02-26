@@ -36,7 +36,7 @@ class Article extends Base{
         $where = $this->_search();
         $list = $article->index($where);
         $this->assign('list',$list);
-        $this->assign('count',count($list));
+        $this->assign('count',$article->total($where));
         $this->assign('page',$list->render());
         return $this->fetch();
     }

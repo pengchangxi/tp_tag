@@ -47,7 +47,7 @@ class Admins extends Base{
         $where = $this->_search();
         $list = $admins->index($where);
         $this->assign('list',$list);
-        $this->assign('count',count($list));
+        $this->assign('count',$admins->total($where));
         $this->assign('page',$list->render());
         return $this->fetch();
     }
