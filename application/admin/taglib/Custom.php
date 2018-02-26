@@ -43,6 +43,11 @@ class Custom extends TagLib{
                     list($url, $param) = $this->parseUrl($url);
                     $parseStr .= '<a class="btn btn-primary radius mr-5" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')"><i class="Hui-iconfont">&#xe600;</i> ' . $title . '</a>';
                     break;
+                case 'evaluate':
+                    $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '版本更新';
+                    list($url, $param) = $this->parseUrl($url);
+                    $parseStr .= '<a class="btn btn-secondary radius mr-5" href="javascript:;" onclick="assignment()"><i class="Hui-iconfont">&#xe6df;</i> ' . $title . '</a>';
+                    break;
                 case 'delete':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '批量删除';
                     list($url, $param) = $this->parseUrl($url);

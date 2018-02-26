@@ -5,12 +5,13 @@
 {block name="main"}
 <div class="page-container">
     <form class="form-inline" role="form" method="post" action="/admin/admins/index">
-        <div class="text-c"> 添加时间：
+        <div class="text-c">
+            用户名：<input type="text" class="input-text" style="width:200px" name="account" value="{$account ? $account : ''}"  >
+            添加时间：
             <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;" name="start" value="{$start ? $start : ''}">
             -
             <input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;" name="end" value="{$end ? $end : ''}">
-            用户名：<input type="text" class="input-text" style="width:200px" name="account" value="{$account ? $account : ''}"  >
-            <button type="submit" class="btn btn-success radius" id="2" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+            <button type="submit" class="btn btn-success radius" id="2" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
     </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">

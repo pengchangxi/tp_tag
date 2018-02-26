@@ -6,8 +6,8 @@
 <div class="page-container">
     <form class="form-inline" role="form" method="post" action="/admin/channel/index">
         <div class="text-c">
-            渠道名称：<input type="text" class="input-text" name="name" value="{$name ? $name : ''}" style="width:200px" >
             渠道编号：<input type="text" class="input-text" name="channel" value="{$channel ? $channel : ''}" style="width:200px" >
+            渠道名称：<input type="text" class="input-text" name="name" value="{$name ? $name : ''}" style="width:200px" >
             是否推广: <span class="select-box inline">
 				<select class="select" id="" name="spread">
 					<option value="">全部</option>
@@ -20,7 +20,7 @@
     </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-        {custom:handle /}
+        {custom:handle menu='add,evaluate' /}
         </span>
         <span class="r">共有数据：<strong>{$count ? $count : 0}</strong> 条</span>
     </div>
@@ -44,7 +44,7 @@
         <tbody>
         {volist name="list" id="vo"}
         <tr class="text-c">
-            <td><input type="checkbox" value="{$vo.id}" name="id[]"></td>
+            <td><input type="checkbox" value="{$vo.id}" name="id[]" class="uniform"></td>
             <td>{$vo.channel}</td>
             <td>{$vo.name}</td>
             <td>{$vo.new_code}</td>
@@ -70,6 +70,40 @@
     /*添加*/
     function layer_open(title,url,w){
         layer_show(title,url,w,600);
+    }
+
+    function assignment(){
+        var valArr = [];
+        $(".table-sort>tbody .uniform").each(function(i){
+            if($(this).is(':checked')){
+                valArr[i] = $(this).val();
+            }
+        });
+        if(valArr.length<1){
+            layer.msg('请勾选数据',{icon: 2});
+            return false;
+        }
+        var ids = valArr.join(',');
+        //b.preventDefault();
+
+        layer.confirm('确定更新版本？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: "GET",
+                url: '/admin/channel/evaluate?id=' + ids,
+                success: function (data) {
+                    if (data.code == 1){
+                        layer.msg(data.msg, {icon: 1});
+                        window.location.reload();
+                    }else {
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }, function(){
+            layer.close();
+        });
     }
 </script>
 {/block}
