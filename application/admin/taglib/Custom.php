@@ -45,7 +45,7 @@ class Custom extends TagLib{
                     break;
                 case 'evaluate':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '版本更新';
-                    list($url, $param) = $this->parseUrl($url);
+                    //list($url, $param) = $this->parseUrl($url);
                     $parseStr .= '<a class="btn btn-secondary radius mr-5" href="javascript:;" onclick="assignment()"><i class="Hui-iconfont">&#xe6df;</i> ' . $title . '</a>';
                     break;
                 case 'delete':

@@ -57,12 +57,12 @@
 </script>
 <script type="text/javascript">
     var urlstr = location.href;
-    $("ul li a").each(function () {
+    $(".menu_list>li a").each(function () {
         if (urlstr.indexOf($(this).attr('href'))>-1 && $(this).attr('href')!='') {
             $(this).parents("dd").css('display','block');
-            $(this).parent().addClass('selected');
+            $(this).parent().addClass('current');
         } else {
-            $(this).parent().removeClass('selected');
+            $(this).parent().removeClass('current');
         }
     });
 </script>
