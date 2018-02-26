@@ -4,9 +4,9 @@
 {/block}
 {block name="main"}
 <div class="page-container">
-    <form class="form-inline" role="form" method="post" action="/admin/article/index">
+    <form class="form-inline" role="form" method="post" action="/admin/admin_log/index">
         <div class="text-c">
-            操作人：<input type="text" class="input-text" name="name" value="{$title ? $title : ''}" style="width:200px" >
+            操作人：<input type="text" class="input-text" name="realname" value="{$realname ? $realname : ''}" style="width:200px" >
             操作时间：
             <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;" name="start" value="{$start ? $start : ''}">
             -
