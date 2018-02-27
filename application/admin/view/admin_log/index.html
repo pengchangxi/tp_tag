@@ -8,9 +8,9 @@
         <div class="text-c">
             操作人：<input type="text" class="input-text" name="realname" value="{$realname ? $realname : ''}" style="width:200px" >
             操作时间：
-            <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;" name="start" value="{$start ? $start : ''}">
+            <input type="text" onfocus="selecttime(1)" id="countTimeStart" class="input-text Wdate" style="width:120px;" name="start" value="{$start ? $start : ''}" readonly>
             -
-            <input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;" name="end" value="{$end ? $end : ''}">
+            <input type="text" onfocus="selecttime(2)" id="countTimeEnd" class="input-text Wdate" style="width:120px;" name="end" value="{$end ? $end : ''}" readonly>
 
             <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
@@ -54,6 +54,20 @@
     /*添加*/
     function layer_open(title,url,w){
         layer_show(title,url,w,600);
+    }
+
+    function selecttime(flag){
+        if(flag==1){
+            var endTime = $("#countTimeEnd").val();
+            if(endTime != ""){
+                WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:endTime})}else{
+                WdatePicker({dateFmt:'yyyy-MM-dd'})}
+        }else{
+            var startTime = $("#countTimeStart").val();
+            if(startTime != ""){
+                WdatePicker({dateFmt:'yyyy-MM-dd',minDate:startTime})}else{
+                WdatePicker({dateFmt:'yyyy-MM-dd'})}
+        }
     }
 </script>
 {/block}
