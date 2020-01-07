@@ -91,7 +91,7 @@ class Admins extends Base
                 $this->error($validate->getError());
                 die;
             }
-            if (!empty(trim($data['password']))) {
+            if (trim($data['password'])) {
                 $salt             = random(6);
                 $data['password'] = md5($data['password'] . $salt);
                 $data['salt']     = $salt;
@@ -121,20 +121,15 @@ class Admins extends Base
     //软删除
     public function delete()
     {
-        $request = Request::instance();
-        $id      = $request->param('id');
-        if ($id) {
-            $ids         = explode(',', $id);
-            $where['id'] = array('in', $ids);
-            $admins      = new M();
-            $edit        = $admins->del($where);
-            if ($edit) {
-                $this->success('删除成功!');
-            } else {
-                $this->error('删除失败!');
-            }
-        } else {
-            $this->error('操作错误!');
+        $id = input('id/a');
+        if (!$id) {
+            $this->error('参数不能为空');
         }
+        $where['id'] = ['in', $id];
+        $admins = new M();
+        if ($admins->softDel($where)) {
+            $this->success('删除成功！');
+        }
+        $this->error('删除失败！');
     }
 }

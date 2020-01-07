@@ -3,9 +3,12 @@
 namespace app\admin\model;
 
 use think\Model;
+use traits\model\SoftDelete;
 
 class Base extends Model
 {
+    use SoftDelete;
+    protected $deleteTime = 'delete_time';
 
     /**
      * 列表
@@ -15,7 +18,7 @@ class Base extends Model
      */
     public function index($where)
     {
-        $list = $this->order('id desc')->where($where)->where('isdelete', 0)->paginate(15, false, [
+        $list = $this->order('id desc')->where($where)->paginate(15, false, [
             'query' => request()->param(),]);
         return $list;
     }
@@ -27,7 +30,7 @@ class Base extends Model
      */
     public function total($where)
     {
-        $total = $this->where($where)->where('isdelete', 0)->count();
+        $total = $this->where($where)->count();
         return $total;
     }
 
@@ -70,14 +73,11 @@ class Base extends Model
     /**
      * 软删除
      * @param $where
-     * @return $this
+     * @return mixed
      */
-    public function del($where)
+    public function softDel($where)
     {
-        $data = array(
-            'isdelete' => 1
-        );
-        $edit = $this->where($where)->update($data);
+        $edit = $this->where($where)->delete();
         return $edit;
     }
 }
