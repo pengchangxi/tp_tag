@@ -4,10 +4,11 @@ namespace app\admin\controller;
 
 use app\admin\model\Admins as M;
 use app\admin\model\Role;
+use think\Controller;
 use think\Loader;
 use think\Request;
 
-class Admins extends Base
+class Admins extends Controller
 {
     //多条件查询
     protected function _search()
@@ -49,7 +50,7 @@ class Admins extends Base
         $where  = $this->_search();
         $list   = $admins->index($where);
         $this->assign('list', $list);
-        $this->assign('count', $admins->total($where));
+        $this->assign('count', $list->toArray()['total']);
         $this->assign('page', $list->render());
         return $this->fetch();
     }

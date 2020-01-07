@@ -24,17 +24,6 @@ class Base extends Model
     }
 
     /**
-     * @param $where
-     * @return int|string
-     * @throws \think\Exception
-     */
-    public function total($where)
-    {
-        $total = $this->where($where)->count();
-        return $total;
-    }
-
-    /**
      * 添加
      * @param $data
      * @return int|string
