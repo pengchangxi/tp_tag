@@ -27,7 +27,7 @@ class Access extends Model
         return $edit;
     }
 
-    public function ruleName($roleId)
+    public function getRuleName($roleId)
     {
         return $this->where(["role_id" => $roleId])->column("rule_name");
     }
