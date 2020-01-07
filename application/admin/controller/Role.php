@@ -8,17 +8,18 @@ use app\admin\model\Access;
 use app\admin\model\Menu;
 use tree\Tree;
 
-class Role extends Base{
-
+class Role extends Base
+{
     //多条件查询
-    protected function _search(){
-        $where = array();
-        $fields=array('name');
+    protected function _search()
+    {
+        $where  = array();
+        $fields = array('name');
         foreach ($fields as $key => $val) {
             if (isset($_REQUEST[$val]) && $_REQUEST[$val] != '') {
                 switch ($val) {
                     case 'name':
-                        $where [$val] = array('like','%'.$_REQUEST[$val].'%');
+                        $where [$val] = array('like', '%' . $_REQUEST[$val] . '%');
                         break;
                     default:
                         $where [$val] = $_REQUEST[$val];
@@ -31,30 +32,33 @@ class Role extends Base{
     }
 
     //列表
-    public function index(){
-        $role = new M();
+    public function index()
+    {
+        $role  = new M();
         $where = $this->_search();
-        $list = $role->index($where);
-        $this->assign('list',$list);
-        $this->assign('count',$role->total($where));
-        $this->assign('page',$list->render());
+        $list  = $role->index($where);
+        $this->assign('list', $list);
+        $this->assign('count', $role->total($where));
+        $this->assign('page', $list->render());
         return $this->fetch();
     }
 
     //添加
-    public function add(){
-        if (request()->isPost()){
-            $data = input('post.');
+    public function add()
+    {
+        if (request()->isPost()) {
+            $data     = input('post.');
             $validate = \think\Loader::validate('Role');
-            if(!$validate->check($data)){
-                $this->error($validate->getError()); die;
+            if (!$validate->check($data)) {
+                $this->error($validate->getError());
+                die;
             }
-            $role = new M();
+            $role                = new M();
             $data['create_time'] = time();
-            $insert_id = $role->add($data);
-            if ($insert_id){
-                $this->success('添加成功!','/admin/role/index');
-            }else{
+            $insert_id           = $role->add($data);
+            if ($insert_id) {
+                $this->success('添加成功!', '/admin/role/index');
+            } else {
                 $this->error('添加失败!');
             }
         }
@@ -62,46 +66,49 @@ class Role extends Base{
     }
 
     //修改
-    public function edit(){
+    public function edit()
+    {
         $role = new M();
-        if (request()->isPost()){
-            $data = input('post.');
+        if (request()->isPost()) {
+            $data     = input('post.');
             $validate = \think\Loader::validate('Role');
-            if (!$validate->check($data)){
-                $this->error($validate->getError());die;
+            if (!$validate->check($data)) {
+                $this->error($validate->getError());
+                die;
             }
             $data['update_time'] = time();
-            $where['id'] = $data['id'];
-            $edit = $role->edit($where,$data);
-            if ($edit){
-                $this->success('修改成功!','/admin/role/index');
-            }else{
+            $where['id']         = $data['id'];
+            $edit                = $role->edit($where, $data);
+            if ($edit) {
+                $this->success('修改成功!', '/admin/role/index');
+            } else {
                 $this->error('修改失败!');
             }
         }
-        $request = Request::instance();
-        $id = $request->param('id');
+        $request     = Request::instance();
+        $id          = $request->param('id');
         $where['id'] = $id;
-        $info = $role->lookup($where);
-        $this->assign('info',$info);
+        $info        = $role->lookup($where);
+        $this->assign('info', $info);
         return $this->fetch('edit');
     }
 
     //软删除
-    public function delete(){
+    public function delete()
+    {
         $request = Request::instance();
-        $id = $request->param('id');
-        if ($id){
-            $ids=explode(',',$id);
-            $where['id'] = array('in',$ids);
-            $role = new M();
-            $edit = $role->del($where);
-            if ($edit){
+        $id      = $request->param('id');
+        if ($id) {
+            $ids         = explode(',', $id);
+            $where['id'] = array('in', $ids);
+            $role        = new M();
+            $edit        = $role->del($where);
+            if ($edit) {
                 $this->success('删除成功!');
-            }else{
+            } else {
                 $this->error('删除失败!');
             }
-        }else{
+        } else {
             $this->error('操作错误!');
         }
     }
@@ -109,8 +116,9 @@ class Role extends Base{
     /**
      * 设置角色权限
      */
-    public function authorize(){
-        $access = new Access();
+    public function authorize()
+    {
+        $access    = new Access();
         $menuModel = new Menu();
         if ($this->request->isPost()) {
             $roleId = $this->request->param("roleId", 0, 'intval');
@@ -123,15 +131,15 @@ class Role extends Base{
                 foreach ($_POST['menuId'] as $menuId) {
                     $menu = $menuModel->getUrl($menuId);
                     if ($menu) {
-                        $name   = $menu['url'];
+                        $name = $menu['url'];
                         $data = array(
-                            "role_id" => $roleId,
+                            "role_id"   => $roleId,
                             "rule_name" => $name
                         );
                         $access->add($data);
                     }
                 }
-                $this->success("授权成功!",'/admin/role/index');
+                $this->success("授权成功!", '/admin/role/index');
             } else {
                 //当没有数据时，清除当前角色授权
                 $access->del($roleId);
@@ -185,8 +193,9 @@ class Role extends Base{
      * @param $privData
      * @return bool
      */
-    private function _isChecked($menu, $privData){
-        $name   = $menu['url'];
+    private function _isChecked($menu, $privData)
+    {
+        $name = $menu['url'];
         if ($privData) {
             if (in_array($name, $privData)) {
                 return true;
@@ -206,7 +215,8 @@ class Role extends Base{
      * @param int $i
      * @return int
      */
-    protected function _getLevel($id, $array = [], $i = 0){
+    protected function _getLevel($id, $array = [], $i = 0)
+    {
         if ($array[$id]['pid'] == 0 || empty($array[$array[$id]['pid']]) || $array[$id]['pid'] == $id) {
             return $i;
         } else {

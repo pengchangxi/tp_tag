@@ -5,38 +5,39 @@ namespace app\admin\taglib;
 use think\Request;
 use think\template\TagLib;
 
-class Custom extends TagLib{
+class Custom extends TagLib
+{
 
     protected $tags = [
-
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
-        'handle'   => ['close' => 0],
+        'handle' => ['close' => 0],
     ];
 
     //列表页操作栏
-    public function tagHandle($tag){
-        $handle = isset($tag['menu']) ?
+    public function tagHandle($tag)
+    {
+        $handle   = isset($tag['menu']) ?
             (is_array($tag['menu']) ? $tag['menu'] : explode(',', $tag['menu'])) :
             ['add', 'delete'];
         $titleArr = isset($tag['title']) ?
             (is_array($tag['title']) ? $tag['title'] : explode(',', $tag['title'])) :
             [];
-        $urlArr = isset($tag['url']) ?
+        $urlArr   = isset($tag['url']) ?
             (is_array($tag['url']) ? $tag['url'] : explode(',', $tag['url'])) :
             [];
         $parseStr = '';
         //////////////////获取当前列表模块和控制器//////////////////////////////////
-        $request = Request::instance();
-        $module = $request->module();//模块
+        $request    = Request::instance();
+        $module     = $request->module();//模块
         $controller = $request->controller();//控制器
         $controller = strtolower(preg_replace('/((?<=[a-z])(?=[A-Z]))/', '_', $controller));//将AbcDef转化为abc_def
         ///////////////////////////////////////////////////////////////////////////
         foreach ($handle as $k => $m) {
-            $m = strtolower($m);
-            $url = isset($urlArr[$k]) && $urlArr[$k] ? $urlArr[$k] : (substr($m, 0, 1) == 's' ? substr($m, 1) : $m);
-            $urls = explode(":", $url);
-            $ver_url = '/'.$module.'/'.$controller.'/'.$urls[0];
-            $parseStr .= "<?php if (\Rbac\Rbac::AccessCheck('".session('adminInfo')['role_id']."','" . $ver_url . "')) : ?>";
+            $m        = strtolower($m);
+            $url      = isset($urlArr[$k]) && $urlArr[$k] ? $urlArr[$k] : (substr($m, 0, 1) == 's' ? substr($m, 1) : $m);
+            $urls     = explode(":", $url);
+            $ver_url  = '/' . $module . '/' . $controller . '/' . $urls[0];
+            $parseStr .= "<?php if (\Rbac\Rbac::AccessCheck('" . session('adminInfo')['role_id'] . "','" . $ver_url . "')) : ?>";
             switch ($m) {
                 case 'add':
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '添加';
@@ -77,7 +78,7 @@ class Custom extends TagLib{
                     // 默认为小菜单
                     $title = isset($titleArr[$k]) && $titleArr[$k] ? $titleArr[$k] : '菜单';
                     list($url, $param) = $this->parseUrl($url);
-                    $class = isset($tag['class']) ? $tag['class'] : 'label-primary';
+                    $class    = isset($tag['class']) ? $tag['class'] : 'label-primary';
                     $parseStr .= ' <a title="' . $title . '" href="javascript:;" onclick="layer_open(\'' . $title . '\',\'<?php echo \think\Url::build(\'' . $url . '\', [' . $param . ']); ?>\')" class="label radius ml-5 ' . $class . '">' . $title . '</a>';
             }
             $parseStr .= "<?php endif; ?>";
@@ -91,10 +92,11 @@ class Custom extends TagLib{
      * @param string $default
      * @return array
      */
-    private function parseUrl($url, $default = ''){
-        $urls = explode(":", $url, 2);
+    private function parseUrl($url, $default = '')
+    {
+        $urls   = explode(":", $url, 2);
         $params = explode("&", count($urls) == 1 ? $default : $urls[1]);
-        $ret = '';
+        $ret    = '';
         foreach ($params as $param) {
             if ($param) {
                 list($key, $value) = explode("=", $param);
@@ -110,13 +112,14 @@ class Custom extends TagLib{
      * 解析变量
      * @param $value
      */
-    private function parseVar(&$value){
+    private function parseVar(&$value)
+    {
         $flag = substr($value, 0, 1);
         switch ($flag) {
             case '$':
                 if (false !== $pos = strpos($value, '?')) {
                     $array = preg_split('/([!=]={1,2}|(?<!-)[><]={0,1})/', substr($value, 0, $pos), 2, PREG_SPLIT_DELIM_CAPTURE);
-                    $name = $array[0];
+                    $name  = $array[0];
                     $this->tpl->parseVar($name);
                     $this->tpl->parseVarFunction($name);
 

@@ -4,26 +4,30 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Base extends Model{
+class Base extends Model
+{
 
     /**
      * 列表
      * @param $where
      * @return \think\Paginator
+     * @throws \think\exception\DbException
      */
-    public function index($where){
-        $list = $this->order('id desc')->where($where)->where('isdelete',0)->paginate(15, false, [
+    public function index($where)
+    {
+        $list = $this->order('id desc')->where($where)->where('isdelete', 0)->paginate(15, false, [
             'query' => request()->param(),]);
         return $list;
     }
 
     /**
-     * 数据总数
      * @param $where
      * @return int|string
+     * @throws \think\Exception
      */
-    public function total($where){
-        $total = $this->where($where)->where('isdelete',0)->count();
+    public function total($where)
+    {
+        $total = $this->where($where)->where('isdelete', 0)->count();
         return $total;
     }
 
@@ -32,7 +36,8 @@ class Base extends Model{
      * @param $data
      * @return int|string
      */
-    public function add($data){
+    public function add($data)
+    {
         $insert_id = $this->insert($data);
         return $insert_id;
     }
@@ -43,7 +48,8 @@ class Base extends Model{
      * @param $data
      * @return $this
      */
-    public function edit($where,$data){
+    public function edit($where, $data)
+    {
         $edit = $this->where($where)->update($data);
         return $edit;
     }
@@ -51,8 +57,12 @@ class Base extends Model{
     /**
      * @param $where
      * @return array|false|\PDOStatement|string|Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
-    public function lookup($where){
+    public function lookup($where)
+    {
         $info = $this->where($where)->find();
         return $info;
     }
@@ -62,9 +72,10 @@ class Base extends Model{
      * @param $where
      * @return $this
      */
-    public function del($where){
-        $data=array(
-            'isdelete'=>1
+    public function del($where)
+    {
+        $data = array(
+            'isdelete' => 1
         );
         $edit = $this->where($where)->update($data);
         return $edit;
