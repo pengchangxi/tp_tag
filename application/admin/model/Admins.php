@@ -13,13 +13,8 @@ class Admins extends Base
     //列表
     public function index($where)
     {
-        $list    = self::with('items')->where($where)->where('isdelete', 0)->order('id desc')->paginate(15, false, [
+        $list    = self::with('items')->where($where)->order('id desc')->paginate(15, false, [
             'query' => request()->param(),]);
-        $channel = new Channel();
-        foreach ($list as $k => $v) {
-            $cList               = $channel->getChannelByAid($v['id']);
-            $list[$k]['channel'] = $cList ? implode(',', $cList) : '暂无';
-        }
         return $list;
     }
 

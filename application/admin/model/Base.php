@@ -70,6 +70,11 @@ class Base extends Model
         return $info;
     }
 
+    public function setNumInc($where, $field, $step = 1)
+    {
+        $this->where($where)->setInc($field, $step);
+    }
+
     /**
      * 软删除
      * @param $where

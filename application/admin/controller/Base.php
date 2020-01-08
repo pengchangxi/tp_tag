@@ -122,4 +122,13 @@ class Base extends Controller
         $adminLog           = new AdminLog();
         $adminLog->add($log);
     }
+
+    /**
+     * 判断是否是post操作
+     * @return bool
+     */
+    public function isPost()
+    {
+        return request()->isPost();
+    }
 }

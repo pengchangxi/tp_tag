@@ -54,6 +54,7 @@ class Admins extends Base
         return $this->fetch();
     }
 
+
     public function add()
     {
         if (request()->isPost()) {
@@ -65,7 +66,7 @@ class Admins extends Base
                 die;
             }
             $salt                = random(6);
-            $data['password']    = md5($data['password'] . $salt);
+            $data['password']    = md5($data['account'] . $data['password'] . $salt);
             $data['salt']        = $salt;
             $data['create_time'] = time();
             $insert_id           = $admins->add($data);
@@ -93,7 +94,7 @@ class Admins extends Base
             }
             if (trim($data['password'])) {
                 $salt             = random(6);
-                $data['password'] = md5($data['password'] . $salt);
+                $data['password'] = md5($data['account'] . $data['password'] . $salt);
                 $data['salt']     = $salt;
             } else {
                 unset($data['password']);
@@ -126,7 +127,7 @@ class Admins extends Base
             $this->error('参数不能为空');
         }
         $where['id'] = ['in', $id];
-        $admins = new M();
+        $admins      = new M();
         if ($admins->softDel($where)) {
             $this->success('删除成功！');
         }
