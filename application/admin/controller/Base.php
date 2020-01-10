@@ -2,11 +2,11 @@
 
 namespace app\admin\controller;
 
+use rbac\Rbac;
 use think\Controller;
 use think\Request;
 use app\admin\model\Menu;
 use app\admin\model\AdminLog;
-
 
 class Base extends Controller
 {
@@ -28,7 +28,7 @@ class Base extends Controller
         }
         if (!in_array($request->controller(), $this->ignoreAction)) {
             if ($request->controller() != 'Index') {
-                $access = \Rbac\Rbac::accessCheck(session('adminInfo')['role_id'], $url);
+                $access = Rbac::accessCheck(session('adminInfo')['role_id'], $url);
                 if (!$access) {
                     $this->error('您没有权限操作该项');
                 }
@@ -121,5 +121,14 @@ class Base extends Controller
         $log['data']        = empty($data) ? '' : json_encode($data);
         $adminLog           = new AdminLog();
         $adminLog->add($log);
+    }
+
+    /**
+     * 判断是否是post操作
+     * @return bool
+     */
+    public function isPost()
+    {
+        return request()->isPost();
     }
 }

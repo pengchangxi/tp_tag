@@ -96,21 +96,16 @@ class Role extends Base
     //软删除
     public function delete()
     {
-        $request = Request::instance();
-        $id      = $request->param('id');
-        if ($id) {
-            $ids         = explode(',', $id);
-            $where['id'] = array('in', $ids);
-            $role        = new M();
-            $edit        = $role->del($where);
-            if ($edit) {
-                $this->success('删除成功!');
-            } else {
-                $this->error('删除失败!');
-            }
-        } else {
-            $this->error('操作错误!');
+        $id = input('id/a');
+        if (!$id) {
+            $this->error('参数不能为空');
         }
+        $where['id'] = ['in', $id];
+        $role = new M();
+        if ($role->softDel($where)) {
+            $this->success('删除成功！');
+        }
+        $this->error('删除失败！');
     }
 
     /**

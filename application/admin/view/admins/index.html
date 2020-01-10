@@ -29,7 +29,6 @@
             <th width="25"><input type="checkbox" value="" name=""></th>
             <th width="40">ID</th>
             <th width="100">用户名</th>
-            <th width="100">拥有渠道</th>
             <th width="100">角色</th>
             <th width="100">添加时间</th>
             <th width="100">状态</th>
@@ -42,7 +41,6 @@
             <td><input type="checkbox" value="{$vo.id}" name="id[]"></td>
             <td>{$vo.id}</td>
             <td>{$vo.account}</td>
-            <td>{$vo.channel}</td>
             <td>{$vo.items.name}</td>
             <td>{$vo.create_time}</td>
             <td>{if condition="$vo.status==1"}<span class="label label-success radius">启用</span>{else /}<span class="label label-warning radius">禁用</span>{/if}</td>
