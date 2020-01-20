@@ -155,7 +155,7 @@ class Role extends Base
         $result = $menuModel->menuCache();
 
         $newMenus      = [];
-        $privilegeData = $access->ruleName($roleId);//获取权限表数据
+        $privilegeData = $access->getRuleName($roleId);//获取权限表数据
         foreach ($result as $m) {
             $newMenus[$m['id']] = $m;
         }
